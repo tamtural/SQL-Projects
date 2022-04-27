@@ -1,0 +1,20 @@
+CREATE TABLE kids (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    age INTEGER,
+    gender TEXT,
+    dob TEXT);
+    
+INSERT INTO kids (name, age, gender, dob) VALUES ("Ayden", 8, "Male", "02/23/2104");
+INSERT INTO kids (name, age, gender, dob) VALUES ("Joselyn", 5, "Female", "08/31/2016");
+INSERT INTO kids (name, age, gender, dob) VALUES ("Malachi", 1, "Male", "10/13/2021");
+INSERT INTO kids (name, age, gender, dob) VALUES ("Madisyn", 0.4, "Female", "11/08/2022");
+
+select*from kids;
+
+Update kids SET dob = "02/23/2014" WHERE name = "Ayden";
+Update kids SET age = 1 WHERE name = "Madisyn";
+Delete FROM kids where name = "Malachi";
+INSERT INTO kids (name, age, gender, dob) VALUES ("Kinsley", 0, "Female", "unknown");
+
+select*from kids;
