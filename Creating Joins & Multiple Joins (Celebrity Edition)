@@ -1,0 +1,52 @@
+CREATE TABLE famous_people (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    age INTEGER);
+    
+INSERT into famous_people (name, age) values ("will smith",53);
+INSERT into famous_people (name, age) values ("brad pitt",58);
+INSERT into famous_people (name, age) values ("stephen curry",34);
+INSERT into famous_people (name, age) values ("lebron james",37);
+INSERT into famous_people (name, age) values ("jada smith",50);
+INSERT into famous_people (name, age) values ("angelina jolie",46);
+INSERT into famous_people (name, age) values ("ayesha curry",33);
+INSERT into famous_people (name, age) values ("savannah james",35);
+
+    
+CREATE TABLE careers (
+    id INTEGER PRIMARY KEY,
+    person_id INTEGER,
+    job TEXT);
+
+INSERT into careers (person_id, job) values (1,"actor");   
+INSERT into careers (person_id, job) values (2,"actor"); 
+INSERT into careers (person_id, job) values (3,"athlete"); 
+INSERT into careers (person_id, job) values (4,"athlete"); 
+INSERT into careers (person_id, job) values (5,"actress");
+INSERT into careers (person_id, job) values (6,"actress");
+INSERT into careers (person_id, job) values (7,"mom");
+INSERT into careers (person_id, job) values (8,"mom");
+
+    
+CREATE TABLE spouse (
+    id INTEGER PRIMARY KEY,
+    spouse1 INTEGER,
+    spouse2 INTEGER);
+    
+INSERT into spouse (spouse1, spouse2) values (1,5); 
+INSERT into spouse (spouse1, spouse2) values (2,6);
+INSERT into spouse (spouse1, spouse2) values (3,7);
+INSERT into spouse (spouse1, spouse2) values (4,8);
+
+select famous_people.id, famous_people.name, careers.job from famous_people
+    join careers
+    on famous_people.id = careers.id;
+    
+select a.name, b.name from spouse 
+    join famous_people a
+    on spouse.spouse1 = a.id
+    join famous_people b
+    on spouse.spouse2 = b.id;
+    
+
+    
