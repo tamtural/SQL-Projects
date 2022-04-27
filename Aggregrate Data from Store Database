@@ -1,0 +1,22 @@
+CREATE TABLE tamtural (id INTEGER PRIMARY KEY, texture TEXT, price REAL, length INTEGER, stock TEXT);
+
+INSERT INTO tamtural VALUES (1, "straight", 100, 10, "yes");
+INSERT INTO tamtural VALUES (2, "wavy", 105, 10, "no");
+INSERT INTO tamtural VALUES (3, "curly", 105, 10, "yes");
+INSERT INTO tamtural VALUES (4, "straight", 110, 12, "no");
+INSERT INTO tamtural VALUES (5, "wavy", 115, 12, "yes");
+INSERT INTO tamtural VALUES (6, "curly", 115, 12, "no");
+INSERT INTO tamtural VALUES (7, "straight", 120, 14, "yes");
+INSERT INTO tamtural VALUES (8, "wavy", 125, 14, "no");
+INSERT INTO tamtural VALUES (9, "curly", 125, 14, "yes");
+INSERT INTO tamtural VALUES (10, "straight", 130, 16, "no");
+INSERT INTO tamtural VALUES (11, "wavy", 135, 16, "yes");
+INSERT INTO tamtural VALUES (12, "curly", 135, 16, "no");
+INSERT INTO tamtural VALUES (13, "straight", 140, 18, "yes");
+INSERT INTO tamtural VALUES (14, "wavy", 145, 18, "no");
+INSERT INTO tamtural VALUES (15, "curly", 145, 18, "yes");
+
+SELECT * FROM tamtural ORDER BY price; 
+SELECT MAX(length) FROM tamtural;
+SELECT SUM(price) FROM tamtural GROUP BY length;
+SELECT texture, SUM(price) FROM tamtural GROUP BY length;
