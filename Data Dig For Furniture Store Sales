@@ -163,3 +163,16 @@ select product,price, country from sales where price < 3000 AND payment_type= "M
 
 /* OR*/
 select product, price, country from sales where country= "Canada" or product= "Bed";
+
+/*SUBQUERIES*/
+select name from sales where price = (select max(price) from sales);
+
+select name, price, product from sales where price > (select avg (price) from sales);
+
+select avg(price) from sales;
+
+update sales set price = price * 0.025 where payment_type in (select payment_type from sales where payment_type = "Amex");
+
+select name, product, price, payment_type from sales where payment_type = "Amex";
+
+delete from sales where price in (select price from sales where price < 31 and payment_type = "Amex");
