@@ -1,0 +1,235 @@
+/* 
+Created by: Tamarl Christie
+Objectve: To create a booking system database to analyze customer behaviors.
+Date: 12/2023
+*/
+
+DROP DATABASE IF EXISTS BS;
+CREATE DATABASE BS;
+USE BS;
+
+DROP TABLE IF EXISTS Customer_T;
+CREATE TABLE Customer_T
+(CustomerID INTEGER(2) NOT NULL,
+  CustomerName VARCHAR(40) NOT NULL,
+  CustomerAddress VARCHAR(30),
+  CustomerCity VARCHAR(20),
+  CustomerState CHAR(2),
+  CustomerPostalCode CHAR(5),
+  CompanyName VARCHAR (15),
+  PRIMARY KEY (CustomerID));
+
+DROP TABLE IF EXISTS Reservation_T;
+CREATE TABLE Reservation_T
+(ReservationID INTEGER(2) NOT NULL,
+  CustomerID INTEGER(2) NOT NULL,
+  DateRequested DATE NOT NULL,
+  PRIMARY KEY (ReservationID, CustomerID),
+  FOREIGN KEY (CustomerID) REFERENCES Customer_T(CustomerID));
+
+DROP TABLE IF EXISTS RoomDetails_T;
+CREATE TABLE RoomDetails_T
+(ReservationID INTEGER(2) NOT NULL,
+  RoomRequested VARCHAR(20),
+  DateOfRoomRequested DATE NOT NULL,
+  LengthOfReservation VARCHAR(10) NOT NULL,
+  PRIMARY KEY (ReservationID),
+  FOREIGN KEY (ReservationID) REFERENCES Reservation_T(ReservationID));
+
+DROP TABLE IF EXISTS OfficeSpace_T;
+CREATE TABLE OfficeSpace_T
+(ReservationID INTEGER(2) NOT NULL,
+  Availability INTEGER (1),
+  PRIMARY KEY (ReservationID),
+  FOREIGN KEY (ReservationID) REFERENCES Reservation_T(ReservationID));
+
+DROP TABLE IF EXISTS Payment_T;
+CREATE TABLE Payment_T
+(ReservationID INTEGER(2) NOT NULL,
+  CustomerID INTEGER(2) NOT NULL,
+  PaymentInfo CHAR(10),
+  PaymentConfirmation INTEGER (4),
+  PostedPayment INTEGER (1),
+  PaymentAmount INTEGER (3),
+  PRIMARY KEY (ReservationID, CustomerID),
+  FOREIGN KEY (ReservationID) REFERENCES Reservation_T(ReservationID),
+  FOREIGN KEY (CustomerID) REFERENCES Customer_T(CustomerID));
+
+INSERT INTO Customer_T (CustomerID,CustomerName,CustomerAddress,CustomerCity,CustomerState,CustomerPostalCode,CompanyName)
+VALUES
+(01,'Kamora Mcmillan','57 Wintergreen Avenue', 'Fort Lauderdale', 'FL','33319','Euphorie'),
+(02,'Dereon Nichols','193 Primrose Court','Titusville','FL','32780','Lux!'),
+(03,'Avery Richard','599 Depot Ave','Miami','FL','33125','Cucina'),
+(04,'Ruben Barnett','61 Oak Meadow Court','Miami','FL','33179','Chocolateria'),
+(05,'Daniela Bennett','367 Fifth Dr','Bradenton','FL','34207','Asio'),
+(06,'Adrianna Guerrero','8062 Proctor St','Jacksonville','FL','32225','Nirvana'),
+(07,'Zane Willis','28 Amerige St','Tampa','FL','33617','Journeux'),
+(08,'Mackenzie Dodson','345 South Cedar Swamp Rd','Fort Lauderdale','FL','33322','Wanderpath'),
+(09,'Keenan Frederick','506 Riverside St','Fort Myers','FL','33912','Adventizo'),
+(10,'Ross Kelley','489 Lafayette St','Pompano Beach','FL','33064','Innovex'),
+(11,'Jasiah Henderson','55 Pendergast Drive','Miami','FL','33157','Bogente'),
+(12,'Luis Decker','377 Woodsman St','Ormond Beach','FL','32174','LogicCool'),
+(13,'Nyasia Russo','8944 Overlook Lane','Homestead','FL','33033','Buhay'),
+(14,'John Carrillo','228 Pennsylvania Street','Hialeah','FL','33013','Visionari'),
+(15,'Avery Fleming','7908 York St','Hialeah','FL','33014','SYNK');
+
+INSERT INTO Reservation_T (ReservationID, CustomerID, DateRequested)
+VALUES
+(1, 1, '2023-01-02'),
+(2, 2, '2023-01-16'),
+(3, 3, '2023-01-19'),
+(4, 4, '2023-03-24'),
+(5, 5, '2023-04-03'),
+(6, 6, '2023-04-08'),
+(7, 7, '2023-04-18'),
+(8, 8, '2023-04-28'),
+(9, 9, '2023-05-13'),
+(10, 10, '2023-05-30'),
+(11, 11, '2023-07-08'),
+(12, 12, '2023-08-20'),
+(13, 13, '2023-10-03'),
+(14, 14, '2023-10-19'),
+(15, 15, '2023-10-24'),
+(16, 1, '2023-10-27'),
+(17, 3, '2023-11-20'),
+(18, 7, '2023-11-23'),
+(19, 9, '2023-12-28'),
+(20, 1, '2023-12-29');
+
+INSERT INTO RoomDetails_T (ReservationID, RoomRequested, DateOfRoomRequested, LengthOfReservation)
+VALUES
+(1, 'Honopu', '2023-01-12', '8 days'),
+(2, 'Boracay', '2023-01-26', '9 days'),
+(3, 'Source D Argent', '2023-01-29', '10 days'),
+(4, 'Hidden', '2023-04-03', '15 days'),
+(5, 'Navagio', '2023-04-13', '16 days'),
+(6, 'Balandra', '2023-04-13', '17 days'),
+(7, 'Tinted Sands', '2023-04-23', '8 days'),
+(8, 'Capricorn Shore', '2023-05-03', '8 days'),
+(9, 'Apple Blossom Coast', '2023-05-18', '8 days'),
+(10, 'Siesta Key', '2023-06-01', '13 days'),
+(11, 'Honopu', '2023-07-10', '8 days'),
+(12, 'Boracay', '2023-08-22', '9 days'),
+(13, 'Source DArgent', '2023-10-05', '10 days'),
+(14, 'Hidden', '2023-10-21', '15 days'),
+(15, 'Navagio', '2023-10-26', '16 days'),
+(16, 'Balandra', '2023-11-11', '17 days'),
+(17, 'Tinted Sands', '2023-12-05', '8 days'),
+(18, 'Capricorn Shore', '2023-12-08', '8 days'),
+(19, 'Apple Blossom Coast', '2024-01-12', '8 days'),
+(20, 'Siesta Key', '2024-01-13', '13 days');
+
+INSERT INTO OfficeSpace_T (ReservationID, Availability)
+VALUES
+(1, 1),
+(2, 0),
+(3, 1),
+(4, 0),
+(5, 1),
+(6, 0),
+(7, 1),
+(8, 0),
+(9, 1),
+(10, 0),
+(11, 1),
+(12, 0),
+(13, 1),
+(14, 0),
+(15, 1),
+(16, 0),
+(17, 1),
+(18, 0),
+(19, 1),
+(20, 0);
+
+INSERT INTO Payment_T (CustomerID, ReservationID, PaymentInfo, PaymentConfirmation, PostedPayment,PaymentAmount)
+VALUES
+(01, 01, 'CreditCard', 9332, 1, 750),
+(02, 02, 'CreditCard', 9334, 0, 520),
+(03, 03, 'CreditCard', 9335, 1, 328),
+(04, 04, 'CreditCard', 9336, 0, 459),
+(05, 05, 'CreditCard', 9337, 1, 317),
+(06, 06, 'CreditCard', 8862, 0, 198),
+(07, 07, 'CreditCard', 8872, 1, 303),
+(08, 08, 'CreditCard', 8882, 0, 848),
+(09, 09, 'CreditCard', 8892, 1, 606),
+(10, 10, 'CreditCard', 8812, 0, 554),
+(11, 11, 'CreditCard', 1845, 1, 170),
+(12, 12, 'CreditCard', 1844, 0, 626),
+(13, 13, 'CreditCard', 1843, 1, 776),
+(14, 14, 'CreditCard', 1842, 0, 404),
+(15, 15, 'CreditCard', 1841, 1, 860),
+(01, 16, 'CreditCard', 9332, 0, 454),
+(03, 17, 'CreditCard', 9334, 1, 607),
+(07, 18, 'CreditCard', 9335, 0, 277),
+(09, 19, 'CreditCard', 9336, 1, 968),
+(01, 20, 'CreditCard', 9336, 0, 865);
+
+#List the customer with the most reservations 
+select Customer_T.CustomerID, Customer_T.CustomerName, Count(*) as TotalReservations
+from Reservation_T
+inner join Customer_T
+on Reservation_T.CustomerID = Customer_T.CustomerID
+group by CustomerID
+order by TotalReservations desc
+limit 1;
+
+#Find all reservations made in December that have 1 or more rooms available.
+select Officespace_T.ReservationID, RoomDetails_T.DateOfRoomRequested, RoomDetails_T.RoomRequested, count(Officespace_T.Availability) as TotalAvailability
+from Officespace_T
+inner join RoomDetails_T
+on Officespace_T. ReservationID = RoomDetails_T.ReservationID
+where month(DateOfRoomRequested) = '12' 
+group by Officespace_T.ReservationID
+having TotalAvailability >= 1;
+
+
+#Identify the average revenue generated from confirmed payments for each room type 
+select RoomDetails_T.RoomRequested, avg(PaymentAmount) as AverageRevenue
+from RoomDetails_T
+inner join Payment_T 
+on RoomDetails_T.ReservationID = Payment_T.ReservationID
+group by RoomRequested
+order by AverageRevenue DESC;
+
+
+#List customer name's and their reservationID's 
+select Customer_T.CustomerName, Group_Concat(ReservationID)
+from Customer_T
+inner join Reservation_T 
+on Customer_T.CustomerID = Reservation_T.CustomerID
+group by Customer_T.CustomerName;
+
+#What cities should we market in (top cities we are getting reservations from)
+select Customer_T.CustomerCity, count(ReservationID) as Reservations
+from Customer_T
+inner join Reservation_T 
+on Customer_T.CustomerID = Reservation_T.CustomerID
+group by Customer_T.CustomerCity
+order by Reservations desc;
+
+#list customer name's and their payment confirmation numbers 
+Select Distinct Customer_T.CustomerName, Group_Concat(PaymentConfirmation)
+from Customer_T
+inner join Payment_T 
+on Customer_T.CustomerID = Payment_T.CustomerID
+group by Customer_T.CustomerName;
+
+#Top 5 Companies by amount of Reservations 
+select CompanyName, count(ReservationID)as CountOfCompanyReservations
+from Customer_T
+inner join Reservation_T 
+on Customer_T.CustomerID = Reservation_T.CustomerID
+group by Customer_T.CompanyName
+order by CountOfCompanyReservations desc
+limit 5;
+
+#Which of our customers are ordering the most time of room reservation 
+select Reservation_T.CustomerID, Customer_T.CustomerName, sum(LengthOfReservation) as ReservationLength
+from Customer_T
+inner join Reservation_T 
+	on Customer_T.CustomerID = Reservation_T.CustomerID
+inner join RoomDetails_T 
+	on RoomDetails_T.ReservationID = Reservation_T.ReservationID
+group by Reservation_T.CustomerID
+order by ReservationLength desc;
